@@ -5,7 +5,22 @@ import pandas as pd
 import os
 import seaborn as sns
 
+METADATA_COLS = [
+    'age',
+    'study_accession',
+    'gender', 
+    'subject_accession', 
+    'METHOD', 
+    'TYPE',
+    'PLATFORM_DESCRIPTION',
+    'PLATFORM_GEO_ID',
+    'data_accession'
+    ]
 
+def get_negative_values(df):
+    description = df.describe().T
+    negative_mins = description[description['min'] < 0]
+    return negative_mins
 
 def violinplot_overall(df, x_topic='GENDER', y_topic='MAX_SUBJECT_AGE_IN_YEARS', hue_split='GENDER', bin_name='test_bin'):
     sns.violinplot(x=x_topic, y=y_topic, hue=hue_split, data=df[[x_topic, y_topic]], split=True)
