@@ -6,16 +6,32 @@ import os
 import seaborn as sns
 
 METADATA_COLS = [
-    'age',
     'study_accession',
-    'gender', 
     'subject_accession', 
+    'data_accession',
+    'age',
+    'gender',
+    'desease', 
+    'origin',
     'METHOD', 
     'TYPE',
     'PLATFORM_DESCRIPTION',
     'PLATFORM_GEO_ID',
-    'data_accession'
     ]
+
+def reorder_columns_by_metadata_and_gene_counts(df, metadata_cols=METADATA_COLS, gene_prefix='ENSG'):
+    gene_columns = [col for col in df.columns if col.startswith(gene_prefix)]    
+    # Split the DataFrame into metadata and gene counts
+    df_meta_only = df[metadata_cols]
+    df_counts = df[gene_columns]
+    
+    # Create a new column order: metadata columns first, then gene count columns
+    new_column_order = list(df_meta_only.columns) + list(df_counts.columns)
+    
+    # Reorder the DataFrame
+    reordered_df = df[new_column_order]
+    
+    return reordered_df
 
 def get_negative_values(df):
     description = df.describe().T
