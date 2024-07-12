@@ -50,7 +50,7 @@ def convert_gene_names_to_ensembl(gene_names):
     
         ensembl_ids.append(mapping)
     
-    successful_conversions = sum(1 for ensembl_id in ensembl_ids if ensembl_id is not None)
+    successful_conversions = sum(1 for ensembl_id in ensembl_ids if ensembl_id.startswith("ENSG"))
     success_rate = (successful_conversions / len(gene_names)) * 100
     print(f"Success rate convertion to ENSAMBLE: {success_rate}")
     return ensembl_ids
