@@ -1,3 +1,6 @@
 *.txt
 *.png
 *.csv
+*.vscode
+2019_soares-schanoski_PLOS/prepare_datasets.ipynb
+2019_soares-schanoski_PLOS/soares_R_evaluation.r
