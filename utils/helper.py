@@ -69,6 +69,19 @@ def convert_gene_names_to_ensembl_mygene(gene_names):
     return ensembl_ids
 
 
+# Function to clean the 'age' column
+def clean_age(value):
+    if isinstance(value, str) and 'age: ' in value:
+        if 'age: ' in value:
+            replaced = value.replace('age: ', '')
+            if replaced == 'NA':
+                return np.nan
+            return float(replaced)
+        else:
+            print(f'Error: {value}')
+            return np.nan
+        
+    return value
 
 
 def reorder_columns_by_metadata_and_gene_counts(df, metadata_cols=METADATA_COLS, gene_prefix='ENSG', gene_columns=[]):
