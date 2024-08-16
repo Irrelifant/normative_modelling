@@ -1,5 +1,75 @@
+# Byte-compiled Python-Files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution/Build directories
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual Environments
+venv/
+ENV/
+env/
+.venv/
+
+# Conda Enviroments
+*.conda
+*.env
+*.lock
+*.yml
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# Jupyter Notebook Extensions
+nbextensions/
+jupyter_contrib_nbextensions/
+
+# personal configuration files
+*.env
+*.envrc
+.envrc
+*.json
+
+# MacOS specific files
+.DS_Store
+
+# Logs
+*.log
+
+# Unit Test / Coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# IDE specific files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Conda specific files
+conda-meta/
+bin/
+lib/
+include/
+pkgs/
+share/
+
+# More files, which shouldn't be tracked
+*.bak
+*.swp
 *.png
 *.csv
 
-#Folder
-test/output
+# Repo scecific
+filepath.py
