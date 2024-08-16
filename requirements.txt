@@ -1,1 +1,10 @@
+geo_utils
+jupyter
+matplotlib
 nbstripout
+numpy
+pandas
+pyreadr
+rpy2
+scipy
+seaborn
