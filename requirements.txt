@@ -1,6 +1,7 @@
 geo_utils
 jupyter
 matplotlib
+mygene
 nbstripout
 numpy
 pandas
