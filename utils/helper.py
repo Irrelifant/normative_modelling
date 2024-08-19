@@ -31,12 +31,10 @@ def load_mapping(file_path):
         gene_to_ensembl[gene_name] = ensembl_id
       
   return ensembl_to_gene, gene_to_ensembl
+         
+ENSEMBL_TO_GENE, GENE_TO_ENSEMBL = load_mapping('utils/ENSEMBLID_mapping.txt')
 
-# TODO @Elias Schreiner: this line doen't work when compiling first cell in merge_single_paper_files.ipynb
-#                        >[Errno 2] No such file or directory: 'utils/ENSEMBLID_mapping.txt'<           
-#ENSEMBL_TO_GENE, GENE_TO_ENSEMBL = load_mapping('utils/ENSEMBLID_mapping.txt')
-
-ENSEMBL_TO_GENE, GENE_TO_ENSEMBL = None, None
+#ENSEMBL_TO_GENE, GENE_TO_ENSEMBL = None, None
 
 ## Here we still got plenty of unmapped results. Maybe https://biit.cs.ut.ee/gprofiler/page/apis provides more 
 def convert_gene_names_to_ensembl(gene_names):
