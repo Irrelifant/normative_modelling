@@ -1,5 +1,5 @@
 ### Before you start
-Make sure you run the following command to install the required packages:
+Make sure you install the project in developer mode:
 ```bash
-  ./setup.sh
+  pip install -e .
 ```
