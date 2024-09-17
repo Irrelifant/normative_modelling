@@ -1,4 +1,5 @@
 PPMI dataset from our application in the IDA portal 
+#TODO: longitudinal data, the several visits make sense, but not the POOL Tag in the data... whats that and how to find out ? 
 
 IR1?
 
