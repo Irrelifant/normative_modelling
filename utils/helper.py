@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import os
-
+import glob
 
 METADATA_COLS = [
     'study_accession',
@@ -33,7 +33,7 @@ def load_mapping(file_path):
 
 
 
-ENSEMBL_TO_GENE, GENE_TO_ENSEMBL = load_mapping('utils/ENSEMBLID_mapping.txt')
+#ENSEMBL_TO_GENE, GENE_TO_ENSEMBL = load_mapping('utils/ENSEMBLID_mapping.txt')
 
 ## Here we still got plenty of unmapped results. Maybe https://biit.cs.ut.ee/gprofiler/page/apis provides more 
 def convert_gene_names_to_ensembl(gene_names):
@@ -100,3 +100,22 @@ def get_negative_values(df):
     description = df.describe().T
     negative_mins = description[description['min'] < 0]
     return negative_mins
+
+def assemble_single_featureCounts_outputs_to_df(folder_path, file_endings='*.txt'):
+    file_list = glob.glob(os.path.join(folder_path, file_endings))
+
+    if len(file_list) == 0:
+        print('Error: Empty file list')
+        return
+    
+    dfs = []
+    for file in file_list:
+        df = pd.read_csv(file, skiprows=[0], sep='\t') # row 0 is a commented out metadata
+        df = df.iloc[:, [0, -1]]
+        sample_name = file.split('/')[-1] # remove the path infront of the filename
+        sample_name = '.'.join(sample_name.split('.')[1:-3]) # remove PPMI-Phase1-IR3 as thid inof is in filename later, and remove '.featureCounts.GencodeV29.txt' as this is redundant too
+        df.columns = ['Geneid', sample_name]
+        dfs.append(df)
+    combined_df = pd.concat(dfs, axis=1)
+    combined_df = combined_df.loc[:, ~combined_df.columns.duplicated()]
+    return df
