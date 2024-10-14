@@ -127,3 +127,31 @@ def assemble_single_featureCounts_outputs_to_df(folder_path, file_endings='*.txt
     combined_df = pd.concat(dfs, axis=1)
     combined_df = combined_df.loc[:, ~combined_df.columns.duplicated()]
     return df
+
+def keep_latest_ensamble_version(df, duplicates, start_col=11):
+    cols = list(df.iloc[:,start_col:].columns)
+    ensemble_names = [col.split('.')[0] for col in cols if '.' in col ]
+    ensemble_versions = [col.split('.')[1] for col in cols if '.' in col ]
+    remove_cols = []
+    for dupl in duplicates:
+        indexes = [index for index, value in enumerate(ensemble_names) if value == dupl]  
+        highest = 0 
+
+        for i in indexes:
+            ## There are a couple of _PAR_Y columns in PPMI, and i could not figure out what that is (Pseudoautosomal Region on Y Chromosome)
+            if '_' in ensemble_versions[i]:
+                ensemble_versions[i] = 0
+            if int(ensemble_versions[i]) > highest:
+                highest = int(ensemble_versions[i])
+        
+        while highest > 0:
+            remove_cols.append(dupl + '.' + str(highest))
+            highest = highest - 1
+    
+    print(df.shape)
+    df = df.drop(columns=remove_cols, errors='ignore') #As not all versions inbetween must exist
+    print(df.shape)
+
+    return df 
+
+
