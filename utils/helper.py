@@ -68,6 +68,7 @@ def convert_gene_names_to_ensembl_mygene(gene_names):
 
 # Function to clean the 'age' column
 def clean_age(value):
+    import random
     if isinstance(value, str) and 'age: ' in value:
         if 'age: ' in value:
             replaced = value.replace('age: ', '')
@@ -77,7 +78,14 @@ def clean_age(value):
         else:
             print(f'Error: {value}')
             return np.nan
-        
+    # here the over 90 handle need to be set
+    elif isinstance(value, str) and 'x' in value:
+        print(f'Error: {value}')
+
+        return np.nan
+    elif isinstance(value, str) and '90+' in value:
+        return float(random.randint(90, 99))
+    
     return value
 
 
